@@ -1,37 +1,235 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>🎁</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>🎁 Auguri!</title>
   <style>
-    body {
-      margin: 0;
-      font-family: system-ui, sans-serif;
-      background: linear-gradient(135deg, #7b0000, #ffb347);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
+    :root{
+      --bg1:#0b1b3a;
+      --bg2:#1c3a2b;
+      --card:#ffffff12;
+      --txt:#fff;
+      --muted:#ffffffcc;
     }
-    .box {
-      background: rgba(0,0,0,0.25);
-      padding: 26px;
-      border-radius: 18px;
-      max-width: 420px;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--txt);
+      background:
+        radial-gradient(1200px 600px at 20% 10%, #ffffff10 0%, transparent 60%),
+        radial-gradient(900px 500px at 80% 20%, #ffffff10 0%, transparent 55%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      overflow:hidden;
     }
+
+    /* “neve” semplice */
+    .snow {
+      position:fixed; inset:0; pointer-events:none; opacity:.7;
+      background-image:
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent 55%),
+        radial-gradient(2px 2px at 80px 90px, #fff, transparent 55%),
+        radial-gradient(1.5px 1.5px at 140px 60px, #fff, transparent 55%),
+        radial-gradient(2px 2px at 210px 140px, #fff, transparent 55%),
+        radial-gradient(1.5px 1.5px at 260px 40px, #fff, transparent 55%),
+        radial-gradient(2px 2px at 320px 110px, #fff, transparent 55%);
+      background-size: 360px 180px;
+      animation: snow 10s linear infinite;
+    }
+    @keyframes snow { from { transform: translateY(-180px); } to { transform: translateY(180px); } }
+
+    .wrap{
+      width:min(900px,100%);
+      display:grid;
+      gap:18px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid #ffffff22;
+      border-radius:22px;
+      padding:22px;
+      box-shadow:0 20px 60px #00000055;
+      backdrop-filter: blur(10px);
+    }
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    h1{
+      margin:0;
+      font-size:clamp(26px,4vw,44px);
+      letter-spacing:.2px;
+    }
+    .sub{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:clamp(14px,2vw,18px);
+      line-height:1.35;
+    }
+    .scene{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:center;
+    }
+    @media (max-width:720px){
+      .scene{ grid-template-columns:1fr; }
+    }
+
+    .character{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:center;
+      padding:14px;
+      border-radius:18px;
+      background:#ffffff0b;
+      border:1px solid #ffffff18;
+    }
+    .label{
+      text-align:left;
+    }
+    .label .name{
+      font-weight:800;
+      font-size:18px;
+      margin:0 0 4px;
+    }
+    .label .desc{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.3;
+    }
+
+    .quote{
+      font-size:clamp(16px,2.2vw,22px);
+      line-height:1.4;
+      margin:0;
+    }
+    .quote small{
+      display:block;
+      margin-top:10px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .footer{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:13px;
+      margin-top:2px;
+    }
+
+    /* SVG responsive */
+    svg{ width:86px; height:86px; flex:0 0 auto; }
   </style>
 </head>
+
 <body>
-  <div class="box">
-    <h1>🎄 Buone Feste</h1>
-    <p>
-      Questo regalo è solo per te.<br>
-      Grazie di cuore ❤️
-    </p>
-  </div>
+  <div class="snow"></div>
+
+  <main class="wrap">
+    <section class="card">
+      <div class="top">
+        <div>
+          <h1>🎄 Buon Natale!</h1>
+          <p class="sub">Una pagina “segreta” da QR code: chi ha il link la vede 😉</p>
+        </div>
+        <div aria-hidden="true" style="font-size:34px">🎁✨</div>
+      </div>
+    </section>
+
+    <section class="card scene">
+      <!-- ORSO maschio -->
+      <div class="character">
+        <svg viewBox="0 0 128 128" role="img" aria-label="Orso maschio natalizio">
+          <!-- cappello -->
+          <path d="M34 42c10-18 50-18 60 0l-8 4H42l-8-4z" fill="#d83b3b"/>
+          <path d="M40 46h48c2 0 4 2 4 4v6H36v-6c0-2 2-4 4-4z" fill="#ffffff"/>
+          <circle cx="96" cy="38" r="8" fill="#ffffff"/>
+          <!-- testa -->
+          <circle cx="64" cy="72" r="36" fill="#8b5a3c"/>
+          <!-- orecchie -->
+          <circle cx="38" cy="54" r="12" fill="#8b5a3c"/>
+          <circle cx="90" cy="54" r="12" fill="#8b5a3c"/>
+          <circle cx="38" cy="54" r="6" fill="#6f432c"/>
+          <circle cx="90" cy="54" r="6" fill="#6f432c"/>
+          <!-- muso -->
+          <ellipse cx="64" cy="82" rx="18" ry="14" fill="#d2b48c"/>
+          <circle cx="64" cy="78" r="5" fill="#2b1b12"/>
+          <path d="M58 88c4 4 8 4 12 0" stroke="#2b1b12" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <!-- occhi -->
+          <circle cx="52" cy="70" r="4" fill="#1a1a1a"/>
+          <circle cx="76" cy="70" r="4" fill="#1a1a1a"/>
+          <!-- sciarpa -->
+          <path d="M36 98c8-10 48-10 56 0 8 10-8 22-28 22S28 108 36 98z" fill="#2f7d32"/>
+          <path d="M76 98c0 0 12 10 18 6 0 0-2 16-18 16z" fill="#2f7d32"/>
+          <path d="M76 98c0 0 10 7 14 4" stroke="#ffffff" stroke-width="4" stroke-linecap="round" fill="none"/>
+        </svg>
+        <div class="label">
+          <p class="name">Orso (lui) 🐻</p>
+          <p class="desc">Serio fuori, cuore morbido dentro.</p>
+        </div>
+      </div>
+
+      <!-- PANDA femmina -->
+      <div class="character">
+        <svg viewBox="0 0 128 128" role="img" aria-label="Panda femmina natalizia">
+          <!-- fiocco -->
+          <path d="M64 34c-10-8-18-8-24 0 10 6 18 6 24 0z" fill="#ff4fa3"/>
+          <path d="M64 34c10-8 18-8 24 0-10 6-18 6-24 0z" fill="#ff4fa3"/>
+          <circle cx="64" cy="34" r="6" fill="#ffd1e6"/>
+          <!-- testa -->
+          <circle cx="64" cy="72" r="36" fill="#ffffff"/>
+          <!-- orecchie -->
+          <circle cx="38" cy="54" r="12" fill="#1e1e1e"/>
+          <circle cx="90" cy="54" r="12" fill="#1e1e1e"/>
+          <!-- macchie occhi -->
+          <ellipse cx="50" cy="72" rx="12" ry="14" fill="#1e1e1e"/>
+          <ellipse cx="78" cy="72" rx="12" ry="14" fill="#1e1e1e"/>
+          <!-- occhi -->
+          <circle cx="50" cy="72" r="4" fill="#ffffff"/>
+          <circle cx="78" cy="72" r="4" fill="#ffffff"/>
+          <circle cx="50" cy="72" r="2" fill="#1e1e1e"/>
+          <circle cx="78" cy="72" r="2" fill="#1e1e1e"/>
+          <!-- naso e sorriso -->
+          <circle cx="64" cy="82" r="5" fill="#1e1e1e"/>
+          <path d="M58 92c4 4 8 4 12 0" stroke="#1e1e1e" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <!-- sciarpa -->
+          <path d="M36 98c8-10 48-10 56 0 8 10-8 22-28 22S28 108 36 98z" fill="#c62828"/>
+          <path d="M52 106c0 0-10 6-18 2 0 0 2 18 18 18z" fill="#c62828"/>
+          <path d="M52 106c0 0-8 5-12 3" stroke="#ffffff" stroke-width="4" stroke-linecap="round" fill="none"/>
+        </svg>
+        <div class="label">
+          <p class="name">Panda (lei) 🐼</p>
+          <p class="desc">Dolce, tosta, e con stile natalizio.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <p class="quote">
+        “<strong>In un mondo che non ci vuole più</strong>”
+        <small>— citazione breve da <em>Il mio canto libero</em> (Lucio Battisti)</small>
+      </p>
+      <div class="footer">
+        <div>✨ Scansiona il QR quando vuoi, il link resta sempre uguale.</div>
+        <div>🎄 Con affetto.</div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
