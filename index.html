@@ -4,232 +4,226 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>🎁 Auguri!</title>
+  <title>🎄 Buon Natale Puffy</title>
   <style>
-    :root{
-      --bg1:#0b1b3a;
-      --bg2:#1c3a2b;
-      --card:#ffffff12;
-      --txt:#fff;
-      --muted:#ffffffcc;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--txt);
-      background:
-        radial-gradient(1200px 600px at 20% 10%, #ffffff10 0%, transparent 60%),
-        radial-gradient(900px 500px at 80% 20%, #ffffff10 0%, transparent 55%),
-        linear-gradient(160deg, var(--bg1), var(--bg2));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:24px;
-      overflow:hidden;
+    :root { --glass: rgba(255,255,255,.12); --stroke: rgba(255,255,255,.22); }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(1200px 600px at 20% 10%, rgba(255,255,255,.18), transparent 60%),
+                  radial-gradient(1000px 600px at 80% 20%, rgba(255,255,255,.12), transparent 55%),
+                  linear-gradient(135deg, #0b2d3a, #2c1b3a);
+      color: #fff;
+      overflow-x: hidden;
     }
 
-    /* “neve” semplice */
+    /* snow */
     .snow {
-      position:fixed; inset:0; pointer-events:none; opacity:.7;
+      position: fixed; inset: 0; pointer-events: none; opacity: .55;
       background-image:
-        radial-gradient(2px 2px at 20px 30px, #fff, transparent 55%),
-        radial-gradient(2px 2px at 80px 90px, #fff, transparent 55%),
-        radial-gradient(1.5px 1.5px at 140px 60px, #fff, transparent 55%),
-        radial-gradient(2px 2px at 210px 140px, #fff, transparent 55%),
-        radial-gradient(1.5px 1.5px at 260px 40px, #fff, transparent 55%),
-        radial-gradient(2px 2px at 320px 110px, #fff, transparent 55%);
-      background-size: 360px 180px;
-      animation: snow 10s linear infinite;
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,.9) 0 2px, transparent 3px),
+        radial-gradient(circle at 30% 80%, rgba(255,255,255,.8) 0 1.5px, transparent 3px),
+        radial-gradient(circle at 70% 30%, rgba(255,255,255,.85) 0 1.8px, transparent 3px),
+        radial-gradient(circle at 90% 70%, rgba(255,255,255,.75) 0 1.2px, transparent 3px);
+      background-size: 280px 280px, 240px 240px, 320px 320px, 220px 220px;
+      animation: drift 10s linear infinite;
+      filter: blur(.2px);
     }
-    @keyframes snow { from { transform: translateY(-180px); } to { transform: translateY(180px); } }
+    @keyframes drift {
+      from { transform: translateY(-40px); }
+      to   { transform: translateY(40px); }
+    }
 
-    .wrap{
-      width:min(900px,100%);
-      display:grid;
-      gap:18px;
-    }
-    .card{
-      background:var(--card);
-      border:1px solid #ffffff22;
-      border-radius:22px;
-      padding:22px;
-      box-shadow:0 20px 60px #00000055;
+    /* lock screen */
+    .lock {
+      position: fixed; inset: 0; display: grid; place-items: center;
+      background: rgba(0,0,0,.72);
       backdrop-filter: blur(10px);
+      z-index: 10;
+      padding: 20px;
     }
-    .top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-      flex-wrap:wrap;
+    .panel {
+      width: min(520px, 92vw);
+      border: 1px solid var(--stroke);
+      background: var(--glass);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
     }
-    h1{
-      margin:0;
-      font-size:clamp(26px,4vw,44px);
-      letter-spacing:.2px;
+    .panel h1 { margin: 0 0 10px; font-size: 20px; font-weight: 700; }
+    .panel p { margin: 0 0 14px; opacity: .9; line-height: 1.35; }
+    .row { display: flex; gap: 10px; }
+    input {
+      flex: 1;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.10);
+      color: #fff;
+      outline: none;
+      font-size: 16px;
     }
-    .sub{
-      margin:8px 0 0;
-      color:var(--muted);
-      font-size:clamp(14px,2vw,18px);
-      line-height:1.35;
+    button {
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 0;
+      font-weight: 800;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff3b7a, #ffb13b);
+      color: #1a1020;
+      box-shadow: 0 10px 26px rgba(0,0,0,.35);
+      white-space: nowrap;
     }
-    .scene{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
-      align-items:center;
+    .err { margin-top: 10px; color: #ffb3c8; display:none; }
+
+    /* content */
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 28px 16px 36px;
+      display: none;
     }
-    @media (max-width:720px){
-      .scene{ grid-template-columns:1fr; }
+    .card {
+      border: 1px solid var(--stroke);
+      background: var(--glass);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 18px 70px rgba(0,0,0,.38);
+    }
+    .hero {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      max-height: 78vh;
+      overflow: hidden;
+    }
+    .hero img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.02);
+    }
+    .overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.65), transparent 55%);
+    }
+    .text {
+      position: absolute;
+      left: 16px; right: 16px; bottom: 16px;
+      padding: 14px 14px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.28);
+      backdrop-filter: blur(8px);
+    }
+    .quote {
+      margin: 0 0 10px;
+      font-size: clamp(18px, 2.7vw, 28px);
+      line-height: 1.15;
+      font-weight: 900;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      animation: glow 2.2s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 8px rgba(255,255,255,.12), 0 0 18px rgba(255,185,80,.10); transform: translateY(0); }
+      to   { text-shadow: 0 0 14px rgba(255,255,255,.22), 0 0 26px rgba(255,60,140,.14); transform: translateY(-2px); }
+    }
+    .sub {
+      margin: 0;
+      font-size: clamp(22px, 3.5vw, 40px);
+      font-weight: 1000;
+      letter-spacing: 1px;
+    }
+    .hint {
+      opacity: .85;
+      margin-top: 10px;
+      font-size: 13px;
     }
 
-    .character{
-      display:flex;
-      gap:14px;
-      align-items:center;
-      justify-content:center;
-      padding:14px;
-      border-radius:18px;
-      background:#ffffff0b;
-      border:1px solid #ffffff18;
-    }
-    .label{
-      text-align:left;
-    }
-    .label .name{
-      font-weight:800;
-      font-size:18px;
-      margin:0 0 4px;
-    }
-    .label .desc{
-      margin:0;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.3;
-    }
-
-    .quote{
-      font-size:clamp(16px,2.2vw,22px);
-      line-height:1.4;
-      margin:0;
-    }
-    .quote small{
-      display:block;
-      margin-top:10px;
-      color:var(--muted);
-      font-size:14px;
-    }
-
-    .footer{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-      color:var(--muted);
-      font-size:13px;
-      margin-top:2px;
-    }
-
-    /* SVG responsive */
-    svg{ width:86px; height:86px; flex:0 0 auto; }
+    audio { display:none; }
   </style>
 </head>
-
 <body>
   <div class="snow"></div>
 
-  <main class="wrap">
-    <section class="card">
-      <div class="top">
-        <div>
-          <h1>🎄 Buon Natale!</h1>
-          <p class="sub">Una pagina “segreta” da QR code: chi ha il link la vede 😉</p>
-        </div>
-        <div aria-hidden="true" style="font-size:34px">🎁✨</div>
+  <!-- LOCK -->
+  <div class="lock" id="lock">
+    <div class="panel">
+      <h1>🎁 Pagina privata</h1>
+      <p>Inserisci la password per vedere gli auguri (e far partire la musica).</p>
+      <div class="row">
+        <input id="pw" type="password" placeholder="Password" autocomplete="off" />
+        <button id="go">Entra</button>
       </div>
-    </section>
+      <div class="err" id="err">Password errata 😅</div>
+      <div class="hint">Nota: su smartphone l’audio parte solo dopo un tocco (questo pulsante vale come “tocco”).</div>
+    </div>
+  </div>
 
-    <section class="card scene">
-      <!-- ORSO maschio -->
-      <div class="character">
-        <svg viewBox="0 0 128 128" role="img" aria-label="Orso maschio natalizio">
-          <!-- cappello -->
-          <path d="M34 42c10-18 50-18 60 0l-8 4H42l-8-4z" fill="#d83b3b"/>
-          <path d="M40 46h48c2 0 4 2 4 4v6H36v-6c0-2 2-4 4-4z" fill="#ffffff"/>
-          <circle cx="96" cy="38" r="8" fill="#ffffff"/>
-          <!-- testa -->
-          <circle cx="64" cy="72" r="36" fill="#8b5a3c"/>
-          <!-- orecchie -->
-          <circle cx="38" cy="54" r="12" fill="#8b5a3c"/>
-          <circle cx="90" cy="54" r="12" fill="#8b5a3c"/>
-          <circle cx="38" cy="54" r="6" fill="#6f432c"/>
-          <circle cx="90" cy="54" r="6" fill="#6f432c"/>
-          <!-- muso -->
-          <ellipse cx="64" cy="82" rx="18" ry="14" fill="#d2b48c"/>
-          <circle cx="64" cy="78" r="5" fill="#2b1b12"/>
-          <path d="M58 88c4 4 8 4 12 0" stroke="#2b1b12" stroke-width="4" stroke-linecap="round" fill="none"/>
-          <!-- occhi -->
-          <circle cx="52" cy="70" r="4" fill="#1a1a1a"/>
-          <circle cx="76" cy="70" r="4" fill="#1a1a1a"/>
-          <!-- sciarpa -->
-          <path d="M36 98c8-10 48-10 56 0 8 10-8 22-28 22S28 108 36 98z" fill="#2f7d32"/>
-          <path d="M76 98c0 0 12 10 18 6 0 0-2 16-18 16z" fill="#2f7d32"/>
-          <path d="M76 98c0 0 10 7 14 4" stroke="#ffffff" stroke-width="4" stroke-linecap="round" fill="none"/>
-        </svg>
-        <div class="label">
-          <p class="name">Orso (lui) 🐻</p>
-          <p class="desc">Serio fuori, cuore morbido dentro.</p>
+  <!-- CONTENT -->
+  <main class="wrap" id="content">
+    <div class="card">
+      <div class="hero">
+        <img src="puffy.png" alt="Panda & Orso natalizi" />
+        <div class="overlay"></div>
+        <div class="text">
+          <!-- Testo “ispirato”: se vuoi una citazione reale, dimmene una di max 10 parole -->
+          <p class="quote">In un mondo che trattiene il respiro, noi scegliamo libertà.</p>
+          <p class="sub">BUON NATALE PUFFY 🎄</p>
         </div>
       </div>
+    </div>
 
-      <!-- PANDA femmina -->
-      <div class="character">
-        <svg viewBox="0 0 128 128" role="img" aria-label="Panda femmina natalizia">
-          <!-- fiocco -->
-          <path d="M64 34c-10-8-18-8-24 0 10 6 18 6 24 0z" fill="#ff4fa3"/>
-          <path d="M64 34c10-8 18-8 24 0-10 6-18 6-24 0z" fill="#ff4fa3"/>
-          <circle cx="64" cy="34" r="6" fill="#ffd1e6"/>
-          <!-- testa -->
-          <circle cx="64" cy="72" r="36" fill="#ffffff"/>
-          <!-- orecchie -->
-          <circle cx="38" cy="54" r="12" fill="#1e1e1e"/>
-          <circle cx="90" cy="54" r="12" fill="#1e1e1e"/>
-          <!-- macchie occhi -->
-          <ellipse cx="50" cy="72" rx="12" ry="14" fill="#1e1e1e"/>
-          <ellipse cx="78" cy="72" rx="12" ry="14" fill="#1e1e1e"/>
-          <!-- occhi -->
-          <circle cx="50" cy="72" r="4" fill="#ffffff"/>
-          <circle cx="78" cy="72" r="4" fill="#ffffff"/>
-          <circle cx="50" cy="72" r="2" fill="#1e1e1e"/>
-          <circle cx="78" cy="72" r="2" fill="#1e1e1e"/>
-          <!-- naso e sorriso -->
-          <circle cx="64" cy="82" r="5" fill="#1e1e1e"/>
-          <path d="M58 92c4 4 8 4 12 0" stroke="#1e1e1e" stroke-width="4" stroke-linecap="round" fill="none"/>
-          <!-- sciarpa -->
-          <path d="M36 98c8-10 48-10 56 0 8 10-8 22-28 22S28 108 36 98z" fill="#c62828"/>
-          <path d="M52 106c0 0-10 6-18 2 0 0 2 18 18 18z" fill="#c62828"/>
-          <path d="M52 106c0 0-8 5-12 3" stroke="#ffffff" stroke-width="4" stroke-linecap="round" fill="none"/>
-        </svg>
-        <div class="label">
-          <p class="name">Panda (lei) 🐼</p>
-          <p class="desc">Dolce, tosta, e con stile natalizio.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <p class="quote">
-        “<strong>In un mondo che non ci vuole più</strong>”
-        <small>— citazione breve da <em>Il mio canto libero</em> (Lucio Battisti)</small>
-      </p>
-      <div class="footer">
-        <div>✨ Scansiona il QR quando vuoi, il link resta sempre uguale.</div>
-        <div>🎄 Con affetto.</div>
-      </div>
-    </section>
+    <audio id="bgm" preload="auto" playsinline>
+      <source src="puffy.mp3" type="audio/mpeg" />
+    </audio>
   </main>
+
+  <script>
+    // ⚠️ Password lato client: non è sicurezza vera (chi sa smanettare può leggerla dal sorgente)
+    const PASSWORD = "Puffina91!";
+    const START_AT = 48; // secondi
+
+    const lock = document.getElementById("lock");
+    const content = document.getElementById("content");
+    const pw = document.getElementById("pw");
+    const err = document.getElementById("err");
+    const go = document.getElementById("go");
+    const audio = document.getElementById("bgm");
+
+    function unlock() {
+      if (pw.value !== PASSWORD) {
+        err.style.display = "block";
+        pw.focus();
+        return;
+      }
+      err.style.display = "none";
+      lock.style.display = "none";
+      content.style.display = "block";
+
+      // Imposta il punto di inizio e prova a far partire l’audio
+      const playFrom = () => {
+        try { audio.currentTime = START_AT; } catch(e) {}
+        const p = audio.play();
+        if (p && typeof p.catch === "function") {
+          p.catch(() => {
+            // Se il browser blocca, basta un tap sullo schermo:
+            const resume = () => { audio.play().catch(()=>{}); document.removeEventListener("click", resume); };
+            document.addEventListener("click", resume);
+          });
+        }
+      };
+
+      if (audio.readyState >= 1) playFrom();
+      else audio.addEventListener("loadedmetadata", playFrom, { once: true });
+    }
+
+    go.addEventListener("click", unlock);
+    pw.addEventListener("keydown", (e) => { if (e.key === "Enter") unlock(); });
+    pw.focus();
+  </script>
 </body>
 </html>
+
