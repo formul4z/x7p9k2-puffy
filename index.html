@@ -12,28 +12,55 @@
       margin: 0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       min-height: 100vh;
-      background: radial-gradient(1200px 600px at 20% 10%, rgba(255,255,255,.18), transparent 60%),
-                  radial-gradient(1000px 600px at 80% 20%, rgba(255,255,255,.12), transparent 55%),
-                  linear-gradient(135deg, #0b2d3a, #2c1b3a);
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(255,255,255,.18), transparent 60%),
+        radial-gradient(1000px 600px at 80% 20%, rgba(255,255,255,.12), transparent 55%),
+        linear-gradient(135deg, #0b2d3a, #2c1b3a);
       color: #fff;
       overflow-x: hidden;
     }
 
-    /* snow */
+    /* ✅ REAL snow: 3 layers, different speed + size */
+    .snow, .snow:before, .snow:after {
+      content: "";
+      position: fixed;
+      inset: -200px 0 0 0;  /* parte più in alto */
+      pointer-events: none;
+      background-repeat: repeat;
+      z-index: 1;
+    }
     .snow {
-      position: fixed; inset: 0; pointer-events: none; opacity: .55;
+      opacity: .35;
       background-image:
-        radial-gradient(circle at 10% 20%, rgba(255,255,255,.9) 0 2px, transparent 3px),
-        radial-gradient(circle at 30% 80%, rgba(255,255,255,.8) 0 1.5px, transparent 3px),
-        radial-gradient(circle at 70% 30%, rgba(255,255,255,.85) 0 1.8px, transparent 3px),
-        radial-gradient(circle at 90% 70%, rgba(255,255,255,.75) 0 1.2px, transparent 3px);
-      background-size: 280px 280px, 240px 240px, 320px 320px, 220px 220px;
-      animation: drift 10s linear infinite;
+        radial-gradient(circle, rgba(255,255,255,.90) 0 1.2px, transparent 2.2px),
+        radial-gradient(circle, rgba(255,255,255,.65) 0 1px, transparent 2px);
+      background-size: 240px 240px, 320px 320px;
+      animation: snowFall 12s linear infinite;
       filter: blur(.2px);
     }
-    @keyframes drift {
-      from { transform: translateY(-40px); }
-      to   { transform: translateY(40px); }
+    .snow:before {
+      opacity: .55;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.95) 0 1.6px, transparent 2.6px),
+        radial-gradient(circle, rgba(255,255,255,.70) 0 1.2px, transparent 2.2px);
+      background-size: 180px 180px, 260px 260px;
+      animation: snowFall 9s linear infinite;
+      transform: translateZ(0);
+    }
+    .snow:after {
+      opacity: .25;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.85) 0 2px, transparent 3px),
+        radial-gradient(circle, rgba(255,255,255,.60) 0 1.4px, transparent 2.4px);
+      background-size: 140px 140px, 220px 220px;
+      animation: snowFall 16s linear infinite;
+      transform: translateZ(0);
+      filter: blur(.35px);
+    }
+
+    @keyframes snowFall {
+      0%   { transform: translateY(-120px) translateX(0); }
+      100% { transform: translateY(420px) translateX(30px); }
     }
 
     /* lock screen */
@@ -77,6 +104,7 @@
       white-space: nowrap;
     }
     .err { margin-top: 10px; color: #ffb3c8; display:none; }
+    .hint { opacity: .85; margin-top: 10px; font-size: 13px; }
 
     /* content */
     .wrap {
@@ -84,6 +112,8 @@
       margin: 0 auto;
       padding: 28px 16px 36px;
       display: none;
+      position: relative;
+      z-index: 2; /* sopra la neve */
     }
     .card {
       border: 1px solid var(--stroke);
@@ -136,11 +166,6 @@
       font-weight: 1000;
       letter-spacing: 1px;
     }
-    .hint {
-      opacity: .85;
-      margin-top: 10px;
-      font-size: 13px;
-    }
 
     audio { display:none; }
   </style>
@@ -166,23 +191,23 @@
   <main class="wrap" id="content">
     <div class="card">
       <div class="hero">
-        <img src="puffy.png" alt="Panda & Orso natalizi" />
+        <img src="puffy.png?v=1" alt="Panda & Orso natalizi" />
         <div class="overlay"></div>
         <div class="text">
-          <!-- Testo “ispirato”: se vuoi una citazione reale, dimmene una di max 10 parole -->
-          <p class="quote">In un mondo che, prigioniero è, il mio canto libero... SEI TU! </p>
+          <!-- Versione “ispirata” (non testuale da canzone) -->
+          <p class="quote">IN UN MONDO CHE STRINGE, NOI RESPIRIAMO LIBERI: IO E TE.</p>
           <p class="sub">BUON NATALE PUFFY 🎄</p>
         </div>
       </div>
     </div>
 
     <audio id="bgm" preload="auto" playsinline>
-      <source src="puffy.mp3" type="audio/mpeg" />
+      <source src="puffy.mp3?v=1" type="audio/mpeg" />
     </audio>
   </main>
 
   <script>
-    // ⚠️ Password lato client: non è sicurezza vera (chi sa smanettare può leggerla dal sorgente)
+    // ⚠️ Password lato client: non è sicurezza vera (si può leggere dal sorgente)
     const PASSWORD = "Puffina91!";
     const START_AT = 48; // secondi
 
@@ -203,14 +228,15 @@
       lock.style.display = "none";
       content.style.display = "block";
 
-      // Imposta il punto di inizio e prova a far partire l’audio
       const playFrom = () => {
         try { audio.currentTime = START_AT; } catch(e) {}
         const p = audio.play();
         if (p && typeof p.catch === "function") {
           p.catch(() => {
-            // Se il browser blocca, basta un tap sullo schermo:
-            const resume = () => { audio.play().catch(()=>{}); document.removeEventListener("click", resume); };
+            const resume = () => {
+              audio.play().catch(()=>{});
+              document.removeEventListener("click", resume);
+            };
             document.addEventListener("click", resume);
           });
         }
@@ -226,4 +252,3 @@
   </script>
 </body>
 </html>
-
